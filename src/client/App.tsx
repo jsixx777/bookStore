@@ -1,9 +1,9 @@
 import * as React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import {BrowserRouter, Switch, Route} from "react-router-dom";
 import Login from "./components/admin/Login";
 import Admin from "./components/admin/Admin";
 import Register from "./components/admin/Register"
-import { StripeProvider, Elements } from "react-stripe-elements";
+import {StripeProvider, Elements} from "react-stripe-elements";
 import Stripe from "./components/public/Stripe";
 import Form from "./components/public/Form";
 import Contact from "./components/public/Contact";
@@ -18,27 +18,34 @@ import Home from "./components/public/Home";
 import Donate from "./components/public/Donate";
 
 export default class App extends React.Component<IAppProps, IAppState> {
-  render() {
-    return (
-      <BrowserRouter>
-        <>
-          <Navbar />
-        </>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/books" component={AllBooks} />
-          <Route exact path="/single/:id" component={SingleBook} />
-          <Route exact path="/admin" component={Admin} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/donate" component={Donate} />
-          <Route exact path="/form" component={Form} />
-          <Route exact path="/contact" component={Contact} />
-        </Switch>
-      </BrowserRouter>
-    );
-  }
+    render() {
+        return (
+                <BrowserRouter>
+                    <>
+                        <Navbar/>
+                    </>
+                    <Switch>
+                        <Route exact path="/" component={Home}/>
+                        <Route exact path="/books" component={AllBooks}/>
+                        <Route exact path="/single/:id" component={SingleBook}/>
+                        <Route exact path="/admin" component={Admin}/>
+                        <Route exact path="/login" component={Login}/>
+                        <Route exact path="/register" component={Register}/>
+                        <Route exact path="/donate" component={Donate}/>
+                        <StripeProvider apiKey='pk_test_sZJArQKC6BzrWbs8aS0DJ2bM001L4wO9nG'>
+                            <Elements>
+                        <Form/>
+                        </Elements>
+                        </StripeProvider>
+                        <Route exact path="/contact" component={Contact}/>
+                    </Switch>
+                </BrowserRouter>
+        );
+    }
 }
 
-interface IAppProps {}
-interface IAppState {}
+interface IAppProps {
+}
+
+interface IAppState {
+}
