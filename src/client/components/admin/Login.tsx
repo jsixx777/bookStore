@@ -81,12 +81,12 @@ class Login extends React.Component<ILoginProps, ILoginState> {
                                 value={this.state.email}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ email: e.target.value })}></input>
                             <label>Password</label>
-                            <textarea
-                                rows={5}
+                            <input
+                                type="password"
                                 className="form-control p1 mb-1"
                                 placeholder="Enter your password..."
                                 value={this.state.password}
-                                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => this.setState({ password: e.target.value })}></textarea>
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ password: e.target.value })}></input>
                             <button type="submit" className="btn btn-warning d-block border border-primary mt-2 p-2 shadow">Login</button>
                             {this.alert}
                         </form>

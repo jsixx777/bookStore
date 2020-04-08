@@ -1,4 +1,7 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Form, FormControl, Button, Row, Col, NavDropdown} from "react-bootstrap";
+
 import {
   Collapse,
   Navbar,
@@ -10,54 +13,80 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  DropdownItem
+} from "reactstrap";
+import { logout } from "../utils/api";
+import { Login } from "../utils/api";
+import { Register } from "../utils/api";
 
-export default class Example extends React.Component<INavbarProps, INavbarState> {
+//import Login from '../admin/Login';
+//import { logout } from '../../../server/routes/auth/login';
+//import { logout } from '../../../server/routes/auth/login';
+
+export default class Example extends React.Component<
+  INavbarProps,
+  INavbarState
+  > {
   constructor(props: INavbarProps) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      navLinkEnabled: true
+
     };
   }
   toggle() {
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.state.isOpen,
+
     });
   }
+
+  componentDidMount() {
+    if (window.location.pathname === '/') {
+      this.setState({ navLinkEnabled: true });
+    } else {
+      this.setState({ navLinkEnabled: false })
+    }
+  }
+
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">reactstrap</NavbarBrand>
+        <Navbar style={{ backgroundColor: "#000000" }} dark expand="md">
+
+
+
+
+          <Link to={"/"} className="h4 mt-1" style={{ color: "#FFFAF0" }}>
+            Book Store
+          </Link>
+
+
+         
+
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/components/">Components</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-              </NavItem>
+            <NavDropdown title="Login" id="basic-nav-dropdown">
+            <NavDropdown.Item onClick={() => Login()}>Login</NavDropdown.Item>
+        <NavDropdown.Item onClick={() => Register()}>Register (New User)</NavDropdown.Item>
+      </NavDropdown>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Options
+                  Logout
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>
-                    Option 1
-                  </DropdownItem>
-                  <DropdownItem>
-                    Option 2
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
+                  <DropdownItem onClick={() => logout()}>Logout</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
+            <Form inline>
+              <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+              <Button variant="outline-success">Search</Button>
+            </Form>
           </Collapse>
         </Navbar>
       </div>
@@ -65,5 +94,9 @@ export default class Example extends React.Component<INavbarProps, INavbarState>
   }
 }
 
-interface INavbarProps { };
-interface INavbarState { isOpen: boolean };
+interface INavbarProps { }
+interface INavbarState {
+  isOpen: boolean;
+  navLinkEnabled: boolean;
+
+}

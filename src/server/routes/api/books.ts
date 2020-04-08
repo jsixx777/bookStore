@@ -2,6 +2,7 @@ import * as express from 'express';
 
 import DB from '../../db';
 import { isAdmin } from '../../middleware/auth-checkpoints';
+import { isGuest } from '../../middleware/auth-checkpoints';
 
 
 
@@ -21,7 +22,7 @@ router.post('/', isAdmin, async (req, res) => {
 });
 
 router.get('/', async(req, res, next) =>{
-    console.log('nanu nanu');
+    
     try{
         let books = await DB.Books.getAll();
         res.send(books);
@@ -32,14 +33,15 @@ router.get('/', async(req, res, next) =>{
     
 })
 
-router.get('/:id',  async(req, res, next) =>{
+router.get('/:id',   async(req, res, next) =>{
     let id = req.params.id;
     try{
-        let blog = await DB.Books.getSingleBook(id);
-        res.send(blog);
+        let book = await DB.Books.getSingleBook(id);
+        res.send(book);
     }catch(e){
         console.log(e);
         res.sendStatus(500);  
+        
     };
     
 })

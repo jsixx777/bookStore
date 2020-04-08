@@ -6,7 +6,7 @@ import Register from "./components/admin/Register"
 import {StripeProvider, Elements} from "react-stripe-elements";
 import Stripe from "./components/public/Stripe";
 import Form from "./components/public/Form";
-import Contact from "./components/public/Contact";
+
 
 import "./scss/app";
 //import "bootstrap/dist/css/bootstrap.min.css";
@@ -37,7 +37,6 @@ export default class App extends React.Component<IAppProps, IAppState> {
                         <Form/>
                         </Elements>
                         </StripeProvider>
-                        <Route exact path="/contact" component={Contact}/>
                     </Switch>
                 </BrowserRouter>
         );

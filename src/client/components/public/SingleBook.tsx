@@ -1,8 +1,10 @@
 import * as React from "react";
-import { json } from "../utils/api";
+import { json, User, amLoggedIn } from "../utils/api";
 import { RouteComponentProps } from "react-router-dom";
 import { Link } from "react-router-dom";
-//import BlogCard from './BlogCard'
+import { Button } from 'react-bootstrap';
+
+
 
 class SingleBook extends React.Component<ISingleBookProps, ISingleBookState> {
   constructor(props: ISingleBookProps) {
@@ -20,17 +22,22 @@ class SingleBook extends React.Component<ISingleBookProps, ISingleBookState> {
     };
   }
 
+private alert: JSX.Element=null;
+
   async componentWillMount() {
     let id = this.props.match.params.id;
     try {
       let [book]: any = await json(`/api/books/${id}`);
-      //let tags = await json(`/api/blogtags/${id}`)
+      
 
       this.setState({ book });
     } catch (e) {
       console.log(e);
     }
   }
+
+  
+
   render() {
     return (
       <main className="container">
@@ -46,13 +53,11 @@ class SingleBook extends React.Component<ISingleBookProps, ISingleBookState> {
             </div>
           </div>
         </section>
-        <Link to={"/blogs"} className="btn btn-success">
+        <Link to={"/books"} className="btn btn-success mr-4">
           Previous Screen
         </Link>
 
-        <Link to={"/form"} className="btn btn-success">
-          Buy Book
-        </Link>
+        <Button onClick={() => amLoggedIn()}>Buy Book></Button>
       </main>
     );
   }
